@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log; 
 use App\Components\Services\Woocommerce\IWCProductService;
 use App\Models\Product;
+use App\Components\Passive\Utilities;
 
 
 class ProductImport extends Command
@@ -50,11 +51,12 @@ class ProductImport extends Command
             $wc_batch_products = $this->_wc_product_service->getProducts(["page" => $page, "per_page"=> 100]);
 
             foreach($wc_batch_products as $product) { 
-                Product::create([
-                    'sku' => $product->sku,
+                Product::updateOrCreate([
+                    'sku' => $product->sku
+                ],[
                     'name' => $product->name,
-                    'quantity' => $product->stock_quantity,
-                    'price' => $product->price
+                    'quantity' => $product->stock_quantity ?? 0,
+                    'price' =>  $product->price ?? null
                 ]);
             } 
             

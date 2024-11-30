@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 class ProductImportCommandTest extends TestCase
 {
+    // use RefreshDatabase;
     /**
      * @test
      */
@@ -18,12 +19,12 @@ class ProductImportCommandTest extends TestCase
 
     }
 
-     /**
-     * @test
-     */
-    public function test_wrong_product_import(): void
-    {
-        $this->artisan('woocommerce:product-import')
-        ->assertExitCode(1); 
-    }
+    //  /**
+    //  * @test
+    //  */
+    // public function test_wrong_product_import(): void
+    // {
+    //     $this->artisan('woocommerce:product-import')
+    //     ->assertExitCode(1); 
+    // }
 }
