@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log; 
+use App\Components\Services\Woocommerce\IWCProductService;
+use App\Models\Product;
+use App\Components\Passive\Utilities;
 
 
 class ProductImport extends Command
@@ -22,11 +25,50 @@ class ProductImport extends Command
      */
     protected $description = 'This will import products from woocommerce.';
 
+    private $_wc_product_service;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct( 
+        IWCProductService $wc_product_service 
+    ) 
+    {
+        parent::__construct(); 
+        $this->_wc_product_service = $wc_product_service;  
+    }
     /**
      * Execute the console command.
      */
     public function handle()
-    {
-        Log::debug("xxxxx");
+    { 
+        $max_page = 1;
+        $page=1;
+
+        do { 
+            $wc_batch_products = $this->_wc_product_service->getProducts(["page" => $page, "per_page"=> 100]);
+
+            foreach($wc_batch_products as $product) { 
+                Product::updateOrCreate([
+                    'sku' => $product->sku
+                ],[
+                    'name' => $product->name,
+                    'quantity' => $product->stock_quantity ?? 0,
+                    'price' =>  $product->price ?? null
+                ]);
+            } 
+            
+            if($page==1) {
+                $max_page = $this->_wc_product_service->getMaxPage();
+                Utilities::message("Maxpage: ".$max_page);
+            }
+            if($page==$max_page) 
+                Utilities::message("last page: ".$page);
+
+            ++$page;
+            
+        } while($page <= $max_page); 
     }
 }
