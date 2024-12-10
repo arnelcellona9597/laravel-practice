@@ -56,7 +56,8 @@ class ProductImport extends Command
                 ],[
                     'name' => $product->name,
                     'quantity' => $product->stock_quantity ?? 0,
-                    'price' =>  $product->price ?? null
+                    'price' =>  $product->price ?? null,
+                    'product_id' => $product->id
                 ]);
             } 
             
