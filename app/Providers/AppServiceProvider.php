@@ -19,7 +19,8 @@ use App\Components\Services\Woocommerce\IWCProductAttributeTermService;
 use App\Components\Services\Woocommerce\IWCProductCategoryService;
 use App\Components\Services\Woocommerce\IWCProductService;
 use App\Components\Services\Woocommerce\IWCProductVariationService; 
-
+use App\Components\Services\ApiService\Impl\SimsApiService;
+use App\Components\Services\ApiService\ISimsApiService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->singleton(ISimsApiService::class, function ($app) {
+            return new SimsApiService;
+        });   
+
         // SERVICES
         $this->app->singleton(IWCClientService::class, function ($app)
         {
