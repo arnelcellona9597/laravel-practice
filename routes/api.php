@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::group(['middleware' => 'auth.very_basic'], function() {
+Route::group(['middleware' => 'auth.very_basic'], function() {
     // Route::post('/import-products',  [MiddlelayerController::class, 'importProducts']); 
     // Route::post('/import-replications',  [MiddlelayerController::class, 'importReplication']); 
     // Route::post('/import-image',  [MiddlelayerController::class, 'importImage']); 
@@ -44,4 +44,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         Route::get('/latest-replication-id',  [SimsController::class, 'GetLatestReplicId']); 
     });
 
-// });
+});
