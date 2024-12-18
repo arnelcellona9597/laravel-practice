@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SimsController;
+use App\Http\Controllers\ArnelCustomProductsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,4 +45,18 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::get('/latest-replication-id',  [SimsController::class, 'GetLatestReplicId']); 
     });
 
+    Route::prefix('arnel-custom-products')->group(function () {
+        Route::post('/', [ArnelCustomProductsController::class, 'store']); // Create
+        Route::get('/', [ArnelCustomProductsController::class, 'index']); // Read all
+        Route::get('/{id}', [ArnelCustomProductsController::class, 'show']); // Read one
+        Route::put('/{id}', [ArnelCustomProductsController::class, 'update']); // Update
+        Route::delete('/{id}', [ArnelCustomProductsController::class, 'destroy']); // Delete
+    });
+
 });
+
+
+
+
+
+
