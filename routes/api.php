@@ -55,11 +55,21 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::delete('/{id}', [ArnelCustomProductsController::class, 'destroy']); // Delete
     });
 
-    Route::post('/students/create', [StudentController::class, 'createStudent']);
-    Route::put('/students/edit/{id}', [StudentController::class, 'editStudent']);
-    Route::get('/students', [StudentController::class, 'getAllStudents']);
-    Route::get('/students/{id}', [StudentController::class, 'getStudentById']);
-    Route::delete('/students/delete/{id}', [StudentController::class, 'deleteStudent']);
+    Route::group(['prefix' => 'students'], function() { 
+
+        Route::post('/enroll-subject/{id}', [StudentController::class, 'enrollSubject']);
+
+        Route::post('/create', [StudentController::class, 'createStudent']);
+        Route::put('/edit/{id}', [StudentController::class, 'editStudent']);
+        Route::get('/', [StudentController::class, 'getAllStudents']);
+        Route::get('/{id}', [StudentController::class, 'getStudentById']);
+        Route::delete('/delete/{id}', [StudentController::class, 'deleteStudent']);
+    });
+
+    Route::group(['prefix' => 'subjects'], function( ) {  
+        Route::post('/create', [StudentController::class, 'addSubjects']);
+        Route::post('/create-student-subject/{id}', [StudentController::class, 'addSubjectToStudent']);
+    });
 
 });
 

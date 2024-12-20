@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User; // Use the correct model for the users table
 use App\Models\Student; // For the students table
+use App\Models\StudentSubject;
+use App\Models\Subject; // For the subject table
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -155,6 +157,49 @@ class StudentController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An unexpected error occurred'], 500);
         }
+    }
+
+
+    public function addSubjects(Request $request)
+    {
+        try {
+            // Validate the incoming request data for both tables
+            $validated = $request->validate([
+                'subject_name' => 'nullable|string|max:255',
+                'subject_description' => 'nullable|string|max:255',
+            ]);
+
+            // Create a new user
+            $subject = Subject::create([
+                'subject_name' => $validated['subject_name'],
+                'subject_description' => $validated['subject_description'],
+            ]);
+
+            // Return the newly created user and student data
+            return response()->json([
+                'subject' => $subject,
+            ], 201);
+
+        } catch (\Exception $e) {
+            // Return error response
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function addSubjectToStudent(Request $request, $studentID)
+    {
+        $student = Student::find($studentID);
+       
+        return response()->json([
+            $student->id
+        ], 201);
+
+        $validated = $request->validate([
+            'subject_id' => 'nullable|string|max:255',
+        ]);
+
+        $return = $student->subjects()->attach( 3 );
+
     }
 
 }

@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Student;
 
-class Student extends Model
+class Subject extends Model
 {
-    protected $fillable = ['user_id', 'name', 'address', 'year_level'];
+    use HasFactory;
 
-    public function user()
+    protected $fillable = [
+        'subject_name',
+        'subject_description'
+    ];
+    
+    public function students(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsToMany(Student::class);
     }
 }
