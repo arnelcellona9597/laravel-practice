@@ -42,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Relationship to Student
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'user_id');
+    }
+
 }

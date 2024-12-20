@@ -7,6 +7,36 @@ use Illuminate\Http\Request;
 class ArnelCustomProductsController extends Controller
 {
 
+    public function triggerPOSTAPI() {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'http://127.0.0.1:8000/api/arnel-custom-products',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'{
+            "product_id": "123",
+            "name": "New Prod",
+            "description": "This is a test product.",
+            "price": 123.99,
+            "stock": 10
+        }',
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+        echo $response;
+    }
+
     public function store(Request $request)
     {
         try {

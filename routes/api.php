@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SimsController;
 use App\Http\Controllers\ArnelCustomProductsController;
+use App\Http\Controllers\StudentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -46,12 +47,19 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
     });
 
     Route::prefix('arnel-custom-products')->group(function () {
+        Route::post('/trigger-post-api', [ArnelCustomProductsController::class, 'triggerPOSTAPI']); // Create
         Route::post('/', [ArnelCustomProductsController::class, 'store']); // Create
         Route::get('/', [ArnelCustomProductsController::class, 'index']); // Read all
         Route::get('/{id}', [ArnelCustomProductsController::class, 'show']); // Read one
         Route::put('/{id}', [ArnelCustomProductsController::class, 'update']); // Update
         Route::delete('/{id}', [ArnelCustomProductsController::class, 'destroy']); // Delete
     });
+
+    Route::post('/students/create', [StudentController::class, 'createStudent']);
+    Route::put('/students/edit/{id}', [StudentController::class, 'editStudent']);
+    Route::get('/students', [StudentController::class, 'getAllStudents']);
+    Route::get('/students/{id}', [StudentController::class, 'getStudentById']);
+    Route::delete('/students/delete/{id}', [StudentController::class, 'deleteStudent']);
 
 });
 
