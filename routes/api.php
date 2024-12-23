@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SimsController;
 use App\Http\Controllers\ArnelCustomProductsController;
 use App\Http\Controllers\StudentController;
+
+use App\Components\Services\Arnel\IArnelService;
+use App\Components\Services\Arnel\IProductService;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -70,6 +74,18 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::post('/create', [StudentController::class, 'addSubjects']);
         Route::post('/create-student-subject/{id}', [StudentController::class, 'addSubjectToStudent']);
     });
+
+
+
+    Route::group(['prefix' => 'arnel-service'], function( ) {  
+        Route::get('/', [\App\Http\Controllers\ArnelServiceController::class, 'getData']);
+
+        Route::get('/products', [\App\Http\Controllers\ArnelServiceController::class, 'getProducts']);
+        Route::post('/products', [\App\Http\Controllers\ArnelServiceController::class, 'createProduct']);
+        Route::get('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'getProduct']);
+        Route::put('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'updateProduct']);
+        Route::delete('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'deleteProduct']);
+    });    
 
 });
 

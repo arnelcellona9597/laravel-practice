@@ -189,17 +189,31 @@ class StudentController extends Controller
     public function addSubjectToStudent(Request $request, $studentID)
     {
         $student = Student::find($studentID);
-       
-        return response()->json([
-            $student->id
-        ], 201);
-
         $validated = $request->validate([
-            'subject_id' => 'nullable|string|max:255',
+            'subject_id' => 'nullable|string',
         ]);
-
-        $return = $student->subjects()->attach( 3 );
-
+        $return = $student->subjects()->attach( $validated['subject_id'] );
+        return $return;
     }
+
+    // public function addSubjectToStudent1(Request $request, $studentID)
+    // {
+    //     // Find the student by ID
+    //     $student = Student::findOrFail($studentID);  // Ensure the student exists
+
+    //     // Validate the incoming request for subject_id
+    //     $validated = $request->validate([
+    //         'subject_id' => 'required|exists:subjects,id',  // Ensure subject_id is provided and exists in the subjects table
+    //     ]);
+
+    //     // Attach the subject to the student
+    //     $student->subjects()->attach($validated['subject_id']);
+
+    //     // Return a success message or the updated relationship
+    //     return response()->json([
+    //         'message' => 'Subject added successfully to the student.',
+    //         'student' => $student->load('subjects'),  // Optionally return the updated student with their subjects
+    //     ], 200);
+    // }
 
 }

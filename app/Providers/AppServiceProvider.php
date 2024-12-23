@@ -22,6 +22,11 @@ use App\Components\Services\Woocommerce\IWCProductVariationService;
 use App\Components\Services\ApiService\Impl\SimsApiService;
 use App\Components\Services\ApiService\ISimsApiService;
 
+use App\Components\Services\Arnel\IArnelService;
+use App\Components\Services\Arnel\Impl\ArnelService;
+use App\Components\Services\Arnel\IProductService;
+use App\Components\Services\Arnel\Impl\ProductService;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,9 +34,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(IProductService::class, ProductService::class);
+        $this->app->bind(IArnelService::class, ArnelService::class);
     }
 
+    
     /**
      * Bootstrap any application services.
      */
@@ -95,5 +102,6 @@ class AppServiceProvider extends ServiceProvider
                 $app->make(IWCClientService::class),
             );
         });
+
     }
 }

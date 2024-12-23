@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')
             ->references('id') // Column in the 'users' table
-            ->on('subjects') // The related table
+            ->on('students') // The related table
             ->onDelete('cascade'); // Optional: Defines the action on delete (e.g., cascade, set null)
 
             $table->string('grade');
