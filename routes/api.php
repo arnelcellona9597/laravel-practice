@@ -6,8 +6,10 @@ use App\Http\Controllers\SimsController;
 use App\Http\Controllers\ArnelCustomProductsController;
 use App\Http\Controllers\StudentController;
 
-use App\Components\Services\Arnel\IArnelService;
-use App\Components\Services\Arnel\IProductService;
+// use App\Components\Services\Arnel\IArnelService;
+// use App\Components\Services\Arnel\IProductService;
+
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,11 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::put('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'updateProduct']);
         Route::delete('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'deleteProduct']);
     });    
+
+
+
+    Route::post('/orders', [OrderController::class, 'store']);
+
 
 });
 
