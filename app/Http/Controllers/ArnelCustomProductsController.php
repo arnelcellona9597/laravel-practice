@@ -61,7 +61,7 @@ class ArnelCustomProductsController extends Controller
         }
     }
 
-    // Get all products
+    // Get all products1
     public function index()
     {
         return response()->json(ArnelCustomProducts::all());

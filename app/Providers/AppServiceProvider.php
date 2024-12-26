@@ -27,6 +27,8 @@ use App\Components\Services\Arnel\Impl\ArnelService;
 use App\Components\Services\Arnel\IProductService;
 use App\Components\Services\Arnel\Impl\ProductService;
 
+use App\Components\Repository\ProductRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -34,8 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(IProductService::class, ProductService::class);
-        $this->app->bind(IArnelService::class, ArnelService::class);
+        // $this->app->bind(IProductService::class, ProductService::class);
+        // $this->app->bind(IArnelService::class, ArnelService::class);
     }
 
     
@@ -44,6 +46,23 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $this->app->singleton(ProductService::class, function ($app) {
+            return new ProductService($app->make(ProductRepository::class));
+        });
+
+        $this->app->singleton(IArnelService::class, function ($app) {
+            return new ArnelService;
+        }); 
+
+        $this->app->singleton(IArnelService::class, function ($app) {
+            return new ArnelService;
+        }); 
+
+        $this->app->singleton(IProductService::class, function ($app) {
+            return new ProductService;
+        }); 
+
         $this->app->singleton(ISimsApiService::class, function ($app) {
             return new SimsApiService;
         });   
