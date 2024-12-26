@@ -1,5 +1,4 @@
-<?php 
-// File: app/Components/Services/Arnel/Impl/ProductService.php
+<?php
 
 namespace App\Components\Services\Arnel\Impl;
 
