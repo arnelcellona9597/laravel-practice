@@ -27,7 +27,12 @@ use App\Components\Services\Arnel\Impl\ArnelService;
 use App\Components\Services\Arnel\IProductService;
 use App\Components\Services\Arnel\Impl\ProductService;
 
+use App\Components\Services\WooOrder\IWooOrderService;
+use App\Components\Services\WooOrder\Impl\WooOrderService;
+
 use App\Components\Repository\ProductRepository;
+use App\Components\Repository\WooOrderRepository;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -64,6 +69,11 @@ class AppServiceProvider extends ServiceProvider
         //     return new ProductService;
         // }); 
         /////////////////////////////////////////////////////
+
+
+        $this->app->singleton(IWooOrderService::class, function ($app) {
+            return new WooOrderService($app->make(WooOrderRepository::class));
+        });
 
         $this->app->singleton(IArnelService::class, function ($app) {
             return new ArnelService;

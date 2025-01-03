@@ -11,4 +11,5 @@ interface IProductService
     public function deleteProduct($id);
     public function getProductBySearch(string $search);
     public function getProductToUpdate(string $search);
+    
 }

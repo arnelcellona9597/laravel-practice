@@ -5,7 +5,7 @@ namespace App\Components\Services\Arnel\Impl;
 use App\Components\Services\Arnel\IProductService;
 use App\Components\Repository\ProductRepository;
 
-class ProductService implements IProductService
+class ProductService implements IProductService 
 {
     private $productRepository;
 

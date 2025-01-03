@@ -86,6 +86,16 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
     });    
 
     Route::post('/orders', [OrderController::class, 'store']);
+
+
+    Route::group(['prefix' => 'woo-orders'], function( ) {  
+        Route::get('/', [\App\Http\Controllers\WooOrdersController::class, 'getOrders']);
+        Route::get('/get-order-by-order-id/{order_id}', [\App\Http\Controllers\WooOrdersController::class, 'getOrderByOrderID']);
+        Route::get('/search-order/{search}', [\App\Http\Controllers\WooOrdersController::class, 'searchOrder']);
+        Route::post('/', [\App\Http\Controllers\WooOrdersController::class, 'addOrder']);
+        Route::put('/{order_id}', [\App\Http\Controllers\WooOrdersController::class, 'updateOrder']);
+        Route::delete('/{order_id}', [\App\Http\Controllers\WooOrdersController::class, 'deleteOrder']);
+    });  
     
 });
 
