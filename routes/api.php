@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SimsController;
@@ -77,11 +76,8 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::post('/create-student-subject/{id}', [StudentController::class, 'addSubjectToStudent']);
     });
 
-
-
     Route::group(['prefix' => 'arnel-service'], function( ) {  
         Route::get('/', [\App\Http\Controllers\ArnelServiceController::class, 'getData']);
-
         Route::get('/products', [\App\Http\Controllers\ArnelServiceController::class, 'getProducts']);
         Route::post('/products', [\App\Http\Controllers\ArnelServiceController::class, 'createProduct']);
         Route::get('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'getProduct']);
@@ -89,11 +85,8 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
         Route::delete('/products/{id}', [\App\Http\Controllers\ArnelServiceController::class, 'deleteProduct']);
     });    
 
-
-
     Route::post('/orders', [OrderController::class, 'store']);
-
-
+    
 });
 
 

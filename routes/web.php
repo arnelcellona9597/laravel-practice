@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ArnelServiceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/arnel', [ArnelServiceController::class, 'readProductsView']);
+Route::post('/arnel', [ArnelServiceController::class, 'updateProductView']);
+Route::delete('/arnel/{id}', [ArnelServiceController::class, 'deleteProductView']);
+Route::post('/arnel/store', [ArnelServiceController::class, 'createProductView']); 

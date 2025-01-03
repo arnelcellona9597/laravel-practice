@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace App\Components\Services\ApiService\Impl;
 
 use App\Components\Services\ApiService\ISimsApiService; 
@@ -230,5 +229,4 @@ class SimsApiService implements ISimsApiService
     //     } 
     //  }
 
-    
 }

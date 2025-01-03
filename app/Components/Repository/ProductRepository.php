@@ -9,7 +9,8 @@ class ProductRepository
     // Fetch all products
     public function getAll()
     {
-        return Product::all();
+        // return Product::all();
+        return Product::orderByRaw('updated_at - created_at DESC')->get();
     }
 
     // Create a new product
@@ -49,4 +50,21 @@ class ProductRepository
         $product->delete();
         return true;
     }
+
+
+
+    public function getProductBySearch(string $search)
+    {
+        return Product::where('name', 'like', '%' . $search . '%')
+        ->orWhere('sku', 'like', '%' . $search . '%')
+        ->orWhere('price', 'like', '%' . $search . '%')
+        ->orWhere('quantity', 'like', '%' . $search . '%')
+        ->first(); // This returns a single model
+    }
+
+    public function getProductToUpdate(string $search)
+    {
+        return Product::where('sku', 'like', '%' . $search . '%')->first();  
+    }
+
 }
