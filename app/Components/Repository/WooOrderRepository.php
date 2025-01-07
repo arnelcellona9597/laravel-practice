@@ -16,7 +16,7 @@ class WooOrderRepository
     {
         return WooOrder::where('order_id', 'like', '%' . $order_id . '%')->first();  
     }
-
+ 
     public function searchOrder( string $search )
     {
         return WooOrder::where('order_id', 'like', '%' . $search . '%')
@@ -24,6 +24,11 @@ class WooOrderRepository
         ->orWhere('customer_email', 'like', '%' . $search . '%')
         ->orWhere('total', 'like', '%' . $search . '%')
         ->orWhere('status', 'like', '%' . $search . '%')->get(); // This returns a single model
+    }
+
+    public function getOrderToUpdate(string $search)
+    {
+        return WooOrder::where('order_id', 'like', '%' . $search . '%')->first();  
     }
 
     public function addOrder(array $data)
@@ -34,7 +39,7 @@ class WooOrderRepository
     
     public function updateOrder($order_id, array $data)
     {
-        $order = WooOrder::find($order_id);
+        $order = WooOrder::where('order_id',  $order_id )->first();  
         if (!$order) {
             return false;
         }
@@ -45,7 +50,7 @@ class WooOrderRepository
 
     public function deleteOrder($order_id)
     {
-        $order = WooOrder::find($order_id);
+        $order = WooOrder::where('order_id',  $order_id )->first(); 
         if (!$order) {
             return false;
         }

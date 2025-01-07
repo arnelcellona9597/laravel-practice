@@ -26,10 +26,10 @@ class ProductRepository
     }
 
     // Update a product by ID
-    public function update($id, array $data)
+    public function update($product_id, array $data)
     {
-        $product = Product::find($id);
-
+        // $product = Product::find($id);
+        $product = Product::where('product_id', $product_id)->first();
         if (!$product) {
             return false;
         }
@@ -37,6 +37,7 @@ class ProductRepository
         $product->update($data);
         return $product;
     }
+    
 
     // Delete a product by ID
     public function delete($id)

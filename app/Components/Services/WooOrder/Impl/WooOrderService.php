@@ -18,7 +18,7 @@ class WooOrderService implements IWooOrderService
     {
         return $this->productRepository->getOrders();
     }
-
+ 
     public function getOrderByOrderID( $order_id ) 
     {
         return $this->productRepository->getOrderByOrderID( $order_id );
@@ -43,6 +43,10 @@ class WooOrderService implements IWooOrderService
     public function deleteOrder($order_id)
     {
         return $this->productRepository->deleteOrder( $order_id );
+    }
+
+    public function getOrderToUpdate(string $search) {
+        return $this->productRepository->getOrderToUpdate( $search );
     }
     
 } 

@@ -63,7 +63,6 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
     Route::group(['prefix' => 'students'], function() { 
 
         Route::post('/enroll-subject/{id}', [StudentController::class, 'enrollSubject']);
-
         Route::post('/create', [StudentController::class, 'createStudent']);
         Route::put('/edit/{id}', [StudentController::class, 'editStudent']);
         Route::get('/', [StudentController::class, 'getAllStudents']);
@@ -86,7 +85,6 @@ Route::group(['middleware' => 'auth.very_basic'], function() {
     });    
 
     Route::post('/orders', [OrderController::class, 'store']);
-
 
     Route::group(['prefix' => 'woo-orders'], function( ) {  
         Route::get('/', [\App\Http\Controllers\WooOrdersController::class, 'getOrders']);

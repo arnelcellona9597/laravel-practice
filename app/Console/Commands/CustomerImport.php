@@ -36,31 +36,32 @@ class CustomerImport extends Command
      */
     public function handle()
     {
-        $max_page = 1;
-        $page=1;
+        // $max_page = 1;
+        // $page=1;
 
-        do { 
-            $wc_batch_customer = $this->_wc_customer_service->getCustomers(["page" => $page, "per_page"=> 100]);
+        // do { 
+        //     $wc_batch_customer = $this->_wc_customer_service->getCustomers(["page" => $page, "per_page"=> 100]);
 
-            foreach($wc_batch_customer as $customer) { 
-                Customer::updateOrCreate([
-                    'customer_id' => $customer->id
-                ],[
-                    'first_name' => $customer->first_name,
-                    'last_name' => $customer->last_name,
-                    'email' =>  $customer->email
-                ]);
-            } 
+        //     foreach($wc_batch_customer as $customer) { 
+        //         Customer::updateOrCreate([
+        //             'customer_id' => $customer->id
+        //         ],[
+        //             'first_name' => $customer->first_name,
+        //             'last_name' => $customer->last_name,
+        //             'email' =>  $customer->email
+        //         ]);
+        //     } 
             
-            if($page==1) {
-                $max_page = $this->_wc_customer_service->getMaxPage();
-                Utilities::message("Maxpage: ".$max_page);
-            }
-            if($page==$max_page) 
-                Utilities::message("last page: ".$page);
+        //     if($page==1) {
+        //         $max_page = $this->_wc_customer_service->getMaxPage();
+        //         Utilities::message("Maxpage: ".$max_page);
+        //     }
+        //     if($page==$max_page) 
+        //         Utilities::message("last page: ".$page);
 
-            ++$page;
+        //     ++$page;
             
-        } while($page <= $max_page); 
+        // } while($page <= $max_page); 
+        echo "CUSTOMER";
     }
 }

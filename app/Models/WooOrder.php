@@ -15,6 +15,6 @@ class WooOrder extends Model
         'customer_email', 
         'total', 
         'status'
-    ];
+    ]; 
 
 }

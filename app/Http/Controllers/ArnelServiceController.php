@@ -63,7 +63,7 @@ class ArnelServiceController extends Controller
     public function updateProductView(Request $request)
     {
         $id = $request->input('id');   
-        $data = $request->only(['sku', 'name', 'quantity', 'price']);
+        $data = $request->only(['sku', 'name', 'quantity', 'price', 'product_id' ]);
         $this->productService->updateProduct($id, $data);
         return redirect('/arnel');
     }

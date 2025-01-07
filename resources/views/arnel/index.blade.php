@@ -58,6 +58,11 @@
             ID:
             <input type="text" name="id"  value="{{ $updateProduct->id }}" />
         </p>
+
+        <p>
+            PRODUCT ID:
+            <input type="text" name="product_id"  value="{{ $updateProduct->product_id }}" />
+        </p>
         
         <p>
             SKU:

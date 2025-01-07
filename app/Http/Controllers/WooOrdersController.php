@@ -16,22 +16,23 @@ class WooOrdersController extends Controller
         $this->wooOrderService = $wooOrderService;
     }
 
+    // FOR API CONTROLLERS
     public function getOrders()
     {
-        $products = $this->wooOrderService->getOrders();
-        return $products;
+        $orders = $this->wooOrderService->getOrders();
+        return $orders;
     }
 
     public function getOrderByOrderID( $order_id )
     {
-        $products = $this->wooOrderService->getOrderByOrderID( $order_id );
-        return $products;
+        $orders = $this->wooOrderService->getOrderByOrderID( $order_id );
+        return $orders;
     }
 
     public function searchOrder( $search )
     {
-        $products = $this->wooOrderService->searchOrder( $search );
-        return $products;
+        $orders = $this->wooOrderService->searchOrder( $search );
+        return $orders;
     }
 
     public function addOrder(Request $request)
@@ -53,6 +54,47 @@ class WooOrdersController extends Controller
     {
         $this->wooOrderService->deleteOrder($order_id);
         return response()->json(['message' => 'Order deleted successfully']);
+    }
+
+    // FOR WEB CONTROLLERS
+    public function wooOrdersViewIndex(Request $request)
+    {
+        $orders = $this->wooOrderService->getOrders()->sortByDesc('id');
+
+        $searchInput = $request->input('search');
+        $searchOrder = null;
+        if ($searchInput) {
+            $searchOrder = $this->wooOrderService->searchOrder($searchInput);
+        }
+
+        $updateParameter = $request->input('update');
+        $updateOrder = null;
+        if ($updateParameter) {
+            $updateOrder = $this->wooOrderService->getOrderToUpdate($updateParameter);
+        }
+        
+        return view('woo-orders.index', ['orders' => $orders, 'searchOrder' => $searchOrder, 'updateOrder' => $updateOrder ]);
+    }
+
+    public function updateProductViewIndex( Request $request )
+    {
+        $order_id = $request->input('order_id');
+        $data = $request->only(['order_id', 'customer_name', 'customer_email', 'total', 'status']);
+        $this->wooOrderService->updateOrder($order_id, $data);
+        return redirect('/woo-orders');
+    }
+
+    public function deleteOrderView($order_id)
+    {
+        $this->wooOrderService->deleteOrder($order_id);
+        return redirect('/woo-orders');
+    }
+
+    public function addOrderView(Request $request)
+    {
+        $data = $request->only(['order_id', 'customer_name', 'customer_email', 'total', 'status']);
+        $this->wooOrderService->addOrder($data);
+        return redirect('/woo-orders');
     }
     
 }

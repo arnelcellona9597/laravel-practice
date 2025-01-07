@@ -10,4 +10,5 @@ interface IWooOrderService
     public function addOrder( $data );
     public function updateOrder($order_id, array $data);
     public function deleteOrder($order_id);
-}
+    public function getOrderToUpdate(string $search);
+} 

@@ -51,26 +51,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-
-        // $this->app->singleton(ProductService::class, function ($app) {
-        //     return new ProductService($app->make(ProductRepository::class));
-        // });
-
-        // $this->app->singleton(IArnelService::class, function ($app) {
-        //     return new ArnelService;
-        // }); 
-
-        // $this->app->singleton(IArnelService::class, function ($app) {
-        //     return new ArnelService;
-        // }); 
-
-        // $this->app->singleton(IProductService::class, function ($app) {
-        //     return new ProductService;
-        // }); 
-        /////////////////////////////////////////////////////
-
-
+        
         $this->app->singleton(IWooOrderService::class, function ($app) {
             return new WooOrderService($app->make(WooOrderRepository::class));
         });
