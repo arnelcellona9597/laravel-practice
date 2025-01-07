@@ -7,45 +7,33 @@
 </head>
 <body>
 
-
-
     <div class="container">
         <h1>Add Product</h1>
     </div>
-
     <form method="POST" action="/arnel/store">
         @csrf
-
         <p>
             Product ID:
             <input type="text" name="product_id" required />
         </p>
-
-
         <p>
             SKU:
             <input type="text" name="sku" required />
         </p>
-
         <p>
             NAME:
             <input type="text" name="name" required />
         </p>
-    
         <p>
             QUANTITY:
             <input type="number" name="quantity" required />
         </p>
-
         <p>
             PRICE:
             <input type="number" name="price" required />
         </p>
-
         <button type="submit">Add Product</button>
     </form>
-
-
 
 
     @if ($updateProduct)
@@ -87,8 +75,6 @@
         <button type="submit" name="update-product" value="update">Update</button>
     </form>
     @endif
-
-
 
 
 

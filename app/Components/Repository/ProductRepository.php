@@ -52,8 +52,6 @@ class ProductRepository
         return true;
     }
 
-
-
     public function getProductBySearch(string $search)
     {
         return Product::where('name', 'like', '%' . $search . '%')
