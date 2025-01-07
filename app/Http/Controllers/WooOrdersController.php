@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Components\Services\WooOrder\IWooOrderService;
 
-use Automattic\WooCommerce\Client;
-
 class WooOrdersController extends Controller
 {
     //
